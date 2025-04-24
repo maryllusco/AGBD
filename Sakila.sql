@@ -38,4 +38,6 @@ GROUP BY rating
 SELECT count (name), c.category_id FROM category c
 GROUP BY category_id
 
+/*ejercicio 8*/
+
 
