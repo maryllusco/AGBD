@@ -5,12 +5,15 @@ drinks_id INTEGER PRIMARY KEY AUTOINCREMENT,
 drinks_name VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE category (
-category_id INTEGER PRIMARY KEY AUTOINCREMENT,
-meals_id INTEGER NOT NULL, 
-drinks_id INTEGER NOT NULL,
-FOREIGN KEY (drinks_id) REFERENCES drinks(drinks_id),
-FOREIGN KEY (meals_id) REFERENCES meals(meals_id)
+CREATE TABLE "category" (
+	category_id	INTEGER,
+	meals_id	INTEGER NOT NULL,
+	drinks_id	INTEGER NOT NULL,
+	meals_cat	INTEGER NOT NULL,
+	drinks_cat	INTEGER NOT NULL,
+	FOREIGN KEY("drinks_id") REFERENCES "drinks"("drinks_id"),
+	PRIMARY KEY("category_id" AUTOINCREMENT),
+	FOREIGN KEY("meals_id") REFERENCES "meals"("meals_id")
 );
 
 CREATE TABLE meals (
@@ -50,15 +53,6 @@ email VARCHAR(50) NOT NULL,
 FOREIGN KEY (address_id) REFERENCES address(address_id)
 );
 
-CREATE TABLE metodos_pago(
-metodos_id INTEGER PRIMARY KEY AUTOINCREMENT,
-pago_name VARCHAR(15) NOT NULL, ---referencio que metodo quiere elegir (mp, tarjeta credito o debito)
-employees_id INTEGER NOT NULL,
-payment_id INTEGER NOT NULL,
-FOREIGN KEY (employees_id) REFERENCES employees(employees_id),
-FOREIGN KEY (payment_id) REFERENCES payment(payment_id));
-
-
 CREATE TABLE payment (
 payment_id INTEGER PRIMARY KEY AUTOINCREMENT,
 employees_id INTEGER,
@@ -84,7 +78,7 @@ VALUES(1, 'Canada 2454'),
 (1, 'Chilavert 4879');
 
 INSERT INTO employees (first_name, last_name, address_id, email)
-VALUES ('Federico', 'Villavisencio',1,  'fede@gmailcom'),
+VALUES ('Federico', 'villavisencio',1,  'fede@gmailcom'),
 ('Tomas', 'Mayorga',3 ,'tomas@gmail.com'), 
 ('Julian', 'Impelluso', 4, 'julian@gmail.com'), 
 ('Andres', 'Navarro', 5, 'andres@gmail.com'), 
@@ -112,6 +106,54 @@ VALUES('Fideos con Bolognesa', 11000, 2),
 ('Porcion de papas', 5500, 1), 
 ('Pizza Muzzarella', 8000, 2), 
 ('Pizza Fugazzata', 9500, 3), 
-('BurgerPizza (especial de la Casa)', 19000, 4)
+('BurgerPizza (Especial de la Casa)', 19000, 4)
 
+INSERT INTO drinks(drinks_id, drinks_name)
+VALUES (1, 'Agua'), 
+(2, 'Coca Cola'), 
+(3, 'Sprite'), 
+(4, 'Fanta'), 
+(5, 'Agua Savorizada'), 
+(6, 'Agua con gas'), 
+(7, 'Limonada'), 
+(8, 'Cerveza'), 
+(9, 'Caipirinha'); 
+
+
+INSERT INTO category (meals_id, drinks_id, meals_cat, drinks_cat)
+VALUES (1, 1, 'Pastas', 'Agua'), 
+(2, 2, 'Plato principal', 'Gaseosas'), 
+(3, 3, 'Minuta', 'Gaseosas'), 
+(4, 4, 'Minuta', 'Gaseosas'), 
+(5, 5, 'Minuta', 'Jugos'), 
+(6, 6, 'Guarniciones', 'Agua'), 
+(7, 7, 'Pizzas', 'Jugos'), 
+(8, 8, 'Pizzas', 'Bebidas Alcoholicas'), 
+(9, 9, 'Especial de la Casa', 'Bebidas Alchoholicas'); 
+
+INSERT INTO customers (first_name, last_name, address_id, email,phone)
+VALUES ('Mary Luz', 'Llusco',1, 'mary@gmail.com', '1131175565'),
+('Lucia','Acuña',3, 'luci@gmail.com', '1141719615'),
+('Abril','Herbas',4, 'abril@gmail.com','1167377704'),
+('Rocio','Albarracion',5, 'rocio@gmail.com','1136118005'),
+('Valentin','Velazquez',6, 'valen@gmail.com','1161138645'),
+('Dylan','Aragon',7, 'dylan@gmail.com','1152603980'),
+('Thomas','Avila',8, 'thomas@gmail.com','1152297349'),
+('Enzo','Materazzi',9, 'enzo@gmail.com','1123539461'),
+('Ayelen','Quispe',10, 'ayelen@gmail.com','1140430201'),
+('Ariana','Villa', 11 , 'ariana@gmail.com','1161929792');
+
+/*ACTUALIZAR DATOS*/
+SELECT customer_id, first_name, last_name FROM customers
+WHERE first_name IN ('Enzo', 'Ayelen', 'Ariana'); 
+UPDATE customers set first_name = 'Leonardo', last_name = 'DiCaprio' WHERE customer_id = 8;
+UPDATE customers set first_name = 'Maria', last_name = 'Diganchi' WHERE customer_id = 9;
+UPDATE customers set first_name = 'Bianca', last_name = 'Lopez' WHERE customer_id = 10;
+
+/*BORRAR DATOS*/
+DELETE FROM customers WHERE customer_id IN (8, 9, 10);
+
+/*INNER JOIN*/
+SELECT m.meals_name, m.price, p.payment_id FROM meals m 
+INNER JOIN payment p ON m.meals_id = p.payment_id
 
