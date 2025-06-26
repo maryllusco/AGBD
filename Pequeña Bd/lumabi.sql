@@ -78,16 +78,16 @@ VALUES(1, 'Canada 2454'),
 (1, 'Chilavert 4879');
 
 INSERT INTO employees (first_name, last_name, address_id, email)
-VALUES ('Federico', 'villavisencio',1,  'fede@gmailcom'),
-('Tomas', 'Mayorga',3 ,'tomas@gmail.com'), 
-('Julian', 'Impelluso', 4, 'julian@gmail.com'), 
-('Andres', 'Navarro', 5, 'andres@gmail.com'), 
-('Mauricio', 'Uribe', 6, 'mauri@gmail.com'), 
-('Natan', 'Jaibe', 7, 'natan@gmail.com'), 
-('Eduardo' ,'Mestrovich', 8, 'edu@gmailcom'), 
-('Alejandro', 'Salomon', 9, 'ale@gmail.com'), 
-('Enrico', 'Provoletta', 10, 'provoletta@gmail.com'), 
-('Adrian', 'Corvalan', 11, 'adri@gmail.com');
+VALUES ('Federico', 'villavicencio',1,  'fede@gmailcom'),
+('Tomas', 'Mayorga',2 ,'tomas@gmail.com'), 
+('Julian', 'Impelluso', 3, 'julian@gmail.com'), 
+('Andres', 'Navarro', 4, 'andres@gmail.com'), 
+('Mauricio', 'Uribe', 5, 'mauri@gmail.com'), 
+('Natan', 'Jaibe', 6, 'natan@gmail.com'), 
+('Eduardo' ,'Mestrovich', 7, 'edu@gmailcom'), 
+('Alejandro', 'Salomon', 8, 'ale@gmail.com'), 
+('Enrico', 'Provoletta', 9, 'provoletta@gmail.com'), 
+('Adrian', 'Corvalan', 10, 'adri@gmail.com');
 
 INSERT INTO payment (employees_id, customer_id, payment)
 VALUES(1, 1, 'Mercado Pago'), 
@@ -105,7 +105,7 @@ VALUES('Fideos con Bolognesa', 11000, 2),
 ('Empanadas (variedad)', 1200, 6 ), 
 ('Porcion de papas', 5500, 1), 
 ('Pizza Muzzarella', 8000, 2), 
-('Pizza Fugazzata', 9500, 3), 
+('Pizza Fugazzeta', 9500, 3), 
 ('BurgerPizza (Especial de la Casa)', 19000, 4)
 
 INSERT INTO drinks(drinks_id, drinks_name)
@@ -133,22 +133,22 @@ VALUES (1, 1, 'Pastas', 'Agua'),
 
 INSERT INTO customers (first_name, last_name, address_id, email,phone)
 VALUES ('Mary Luz', 'Llusco',1, 'mary@gmail.com', '1131175565'),
-('Lucia','Acuña',3, 'luci@gmail.com', '1141719615'),
-('Abril','Herbas',4, 'abril@gmail.com','1167377704'),
-('Rocio','Albarracion',5, 'rocio@gmail.com','1136118005'),
-('Valentin','Velazquez',6, 'valen@gmail.com','1161138645'),
-('Dylan','Aragon',7, 'dylan@gmail.com','1152603980'),
-('Thomas','Avila',8, 'thomas@gmail.com','1152297349'),
-('Enzo','Materazzi',9, 'enzo@gmail.com','1123539461'),
-('Ayelen','Quispe',10, 'ayelen@gmail.com','1140430201'),
-('Ariana','Villa', 11 , 'ariana@gmail.com','1161929792');
+('Lucia','Acuña',2, 'luci@gmail.com', '1141719615'),
+('Abril','Herbas',3, 'abril@gmail.com','1167377704'),
+('Rocio','Albarracion',4, 'rocio@gmail.com','1136118005'),
+('Valentin','Velazquez',5, 'valen@gmail.com','1161138645'),
+('Dylan','Aragon',6, 'dylan@gmail.com','1152603980'),
+('Thomas','Avila',7, 'thomas@gmail.com','1152297349'),
+('Enzo','Materazzi',8, 'enzo@gmail.com','1123539461'),
+('Ayelen','Quispe',9, 'ayelen@gmail.com','1140430201'),
+('Ariana','Villa', 10 , 'ariana@gmail.com','1161929792');
 
 /*ACTUALIZAR DATOS*/
 SELECT customer_id, first_name, last_name FROM customers
 WHERE first_name IN ('Enzo', 'Ayelen', 'Ariana'); 
 UPDATE customers set first_name = 'Leonardo', last_name = 'DiCaprio' WHERE customer_id = 8;
-UPDATE customers set first_name = 'Maria', last_name = 'Diganchi' WHERE customer_id = 9;
-UPDATE customers set first_name = 'Bianca', last_name = 'Lopez' WHERE customer_id = 10;
+UPDATE customers set first_name = 'Roberto', last_name = 'Martinez' WHERE customer_id = 9;
+UPDATE customers set first_name = 'Bianca', last_name = 'Fernandez' WHERE customer_id = 10;
 
 /*BORRAR DATOS*/
 DELETE FROM customers WHERE customer_id IN (8, 9, 10);
@@ -156,4 +156,8 @@ DELETE FROM customers WHERE customer_id IN (8, 9, 10);
 /*INNER JOIN*/
 SELECT m.meals_name, m.price, p.payment_id FROM meals m 
 INNER JOIN payment p ON m.meals_id = p.payment_id
+
+/*INNER JOIN*/
+SELECT e.employees_id, e.first_name, e.last_name, e.email FROM employees e
+INNER JOIN address a ON e.employees_id = a.address_id
 
